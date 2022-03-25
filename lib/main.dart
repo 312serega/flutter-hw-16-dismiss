@@ -29,7 +29,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final List<String> items = List.generate(10, (index) => 'item $index');
-  String inputValue = '';
+  late String inputValue = '';
   void showAlert() {
     showDialog<void>(
       context: context,
@@ -41,8 +41,9 @@ class _MainScreenState extends State<MainScreen> {
               const Text('data'),
               TextFormField(
                 onChanged: (value) {
-                  inputValue == value;
-                  setState(() {});
+                  setState(() {
+                    inputValue = value;
+                  });
                 },
               ),
             ],
