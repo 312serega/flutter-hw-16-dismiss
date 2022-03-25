@@ -42,6 +42,8 @@ class _MainScreenState extends State<MainScreen> {
               TextFormField(
                 onChanged: (value) {
                   inputValue == value;
+                  print(value);
+                  print(inputValue);
                 },
               ),
             ],
@@ -84,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
               });
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 duration: const Duration(milliseconds: 400),
-                content: Text('Элемент ${items[index]} удален'),
+                content: Text('Элемент удален'),
               ));
             },
           );
