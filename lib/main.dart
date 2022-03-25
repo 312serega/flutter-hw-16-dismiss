@@ -42,8 +42,7 @@ class _MainScreenState extends State<MainScreen> {
               TextFormField(
                 onChanged: (value) {
                   inputValue == value;
-                  print(value);
-                  print(inputValue);
+                  setState(() {});
                 },
               ),
             ],
@@ -67,7 +66,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
+      body: ReorderableListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
           return Dismissible(
@@ -84,12 +83,21 @@ class _MainScreenState extends State<MainScreen> {
               setState(() {
                 items.removeAt(index);
               });
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                duration: const Duration(milliseconds: 400),
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                duration: Duration(milliseconds: 400),
                 content: Text('Элемент удален'),
               ));
             },
           );
+        },
+        onReorder: (oldIndex, newIndex) {
+          setState(() {
+            if (newIndex > oldIndex) {
+              newIndex = newIndex - 1;
+            }
+            final element = items.removeAt(oldIndex);
+            items.insert(newIndex, element);
+          });
         },
       ),
       floatingActionButton: FloatingActionButton(
